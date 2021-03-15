@@ -1,1 +1,1 @@
-# Firebase-React
+This is a project to develop my fullstack skills with firebase and react!
