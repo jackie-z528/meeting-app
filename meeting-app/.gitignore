@@ -19,7 +19,7 @@
 .env.production.local
 
 #config
-/Config
+./src/Config
 
 #dotfiles
 ../.*
