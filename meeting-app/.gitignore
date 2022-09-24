@@ -8,9 +8,6 @@
 # testing
 /coverage
 
-#Config keys
-/src/Config
-
 # production
 /build
 
