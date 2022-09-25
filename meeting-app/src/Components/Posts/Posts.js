@@ -3,6 +3,7 @@ import PostSummary from './PostSummary';
 import { Link } from 'react-router-dom'
 
 const Posts = ({ posts }) => {
+    console.log(posts)
     return (
         <div className="project-list section">
             { posts && posts.map(post => {
@@ -12,7 +13,7 @@ const Posts = ({ posts }) => {
                     </Link>
                 )
             })}
-            {!posts ? <p className="orange-text lighten-1">There are currently no posts.</p> : null}
+            {!posts?.length ? <p className="orange-text lighten-1">There are currently no meetings.</p> : null}
         </div>
     )
 }

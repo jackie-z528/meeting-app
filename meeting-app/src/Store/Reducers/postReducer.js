@@ -17,11 +17,23 @@ const postReducer = (state = initState, action) => {
         case 'CREATE_POST_ERR':
             console.log('create post error', action.err);
             return state;
+        case 'CREATE_POST_TOPIC':
+            console.log('created post topic', action.postTopic);
+            return state;
+        case 'CREATE_POST__TOPIC_ERR':
+            console.log('create post topic error', action.err)
+            return state;
         case 'DELETE_POST':
             console.log('deleted post');
             return state;
         case 'DELETE_POST_ERR':
             console.log('delete post error', action.err);
+            return state;
+        case 'SEND_MESSAGE':
+            console.log('sent message', action.message);
+            return state;
+        case 'SEND_MESSAGE_ERR':
+            console.log('send message error', action.err);
             return state;
         default: 
             return state;

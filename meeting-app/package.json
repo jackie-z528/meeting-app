@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
+    "auto-scroll-container": "^2.1.0",
     "firebase": "^8.10.1",
     "moment": "^2.29.1",
     "react": "^17.0.1",
@@ -17,6 +18,8 @@
     "redux": "^4.0.5",
     "redux-firestore": "^0.15.0",
     "redux-thunk": "^2.3.0",
+    "scrollable-component": "^1.2.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^1.1.1"
   },
   "scripts": {

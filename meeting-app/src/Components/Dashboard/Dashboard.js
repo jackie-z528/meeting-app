@@ -33,7 +33,8 @@ const mapStateToProps = (state) => {
     return {
         posts: state.firestore.ordered.posts,
         auth: state.firebase.auth,
-        notifs: state.firestore.ordered.notifications
+        notifs: state.firestore.ordered.notifications,
+        
     }
 }
 
