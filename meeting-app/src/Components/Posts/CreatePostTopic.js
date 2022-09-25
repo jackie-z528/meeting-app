@@ -21,6 +21,7 @@ class CreatePostTopic extends Component {
         this.props.createPostTopic(this.state);
         this.props.history.push(`/post/${id}`);
     }
+    
     render() {
         const { auth, id } = this.props;
         if (!auth.uid) return <Redirect to='/signin'/>;

@@ -20,15 +20,26 @@ const Container = styled.div`
 
 class PostDetail extends Component {
 
+    messagesEndRef = React.createRef()
+
     handleClick = (e) => {
         console.log('deleted post');
         this.props.deletePost(this.props);
         this.props.history.push('/');
     }
-
+    scrollToBottom = () => {
+        this.messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
+    }
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
     render() {
         const { post, auth, id, topics, messages } = this.props;
-        console.log(messages);
+        topics.reverse();
+        console.log(topics);
         if (!auth.uid) return <Redirect to='/signin'/>;
 
         if (post) {
@@ -39,7 +50,7 @@ class PostDetail extends Component {
                             <span className="card-title">{post.title}</span>
                             {topics && 
                             <div>
-                                {topics.map((topic) => { return <PostTopic topic={topic} /> })}
+                                {topics.map((topic) => { return <PostTopic topic={topic} key={topic.id}/> })}
                             </div>}
                         </div>
                         <div className="card-action grey-lighten-4 grey-text">
@@ -57,6 +68,7 @@ class PostDetail extends Component {
                                 messages.map((message) => <Message message={message}/>) 
                                 : <div style={{padding: "0.5rem"}}>No messages yet</div>
                             }
+                            <div ref={this.messagesEndRef}></div>
                         </div>
                         <MessageInput postId={id}/>
                     </div>
@@ -102,7 +114,7 @@ export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         { collection: 'posts' },
-        { collection: 'postTopics', orderBy: ['createdAt', 'asc']},
+        { collection: 'postTopics', orderBy: ['createdAt', 'desc']},
         { collection: 'messages', orderBy:['createdAt', 'asc']}
     ])
 )(PostDetail)
