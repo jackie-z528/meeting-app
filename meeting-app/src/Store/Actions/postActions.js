@@ -1,3 +1,4 @@
+import { getFirebase } from "react-redux-firebase";
 
 
 export const createPost = (post) => {
@@ -41,7 +42,6 @@ export const deletePost = (post) => {
         firestore.collection('messages').where('postId', '==', post.id).get()
         .then((snapshot) => {
             snapshot.forEach((message) => {
-                console.log("ref: ", message.ref)
                 message.ref.delete().then(() => {
                     dispatch({type: 'DELETE_MESSAGE_TOPIC'});
                 }).catch((err) => {
@@ -66,7 +66,21 @@ export const createPostTopic = (topic) => {
         }).then(() => {
             dispatch({type: 'CREATE_POST_TOPIC', postTopic: topic});
         }).catch((err) => {
-            dispatch({type: 'CREATE_POST_ERR', err});
+            dispatch({type: 'CREATE_POST__TOPIC_ERR', err});
+        });
+    }
+}
+
+export const editPostTopic = (topic, id) => {
+    return (dispatch, getState, { getFirebase }) => {
+        const firestore = getFirebase().firestore();
+        firestore.collection('postTopics').doc(id).update({
+            ...topic,
+            editedAt: new Date()
+        }).then(() => {
+            dispatch({type: 'EDIT_POST_TOPIC', postTopic: topic});
+        }).catch((err) => {
+            dispatch({type: 'CREATE_POST_TOPIC_ERR', err});
         });
     }
 }

@@ -7,6 +7,7 @@ import SignIn from './Components/Auth/SignIn'
 import SignUp from './Components/Auth/SignUp'
 import CreatePost from './Components/Posts/CreatePost'
 import CreatePostTopic from './Components/Posts/CreatePostTopic';
+import EditPostTopic from './Components/Posts/EditPostTopic';
 
 class App extends Component {
 		render () {
@@ -15,8 +16,9 @@ class App extends Component {
 				<div className="App">
 					<Navbar />
 					<Switch>
-						<Route exact path='/' component = {Dashboard} />
-						<Route path = '/post/:id/createTopic' component = {CreatePostTopic} />
+						<Route exact path='/' component={Dashboard} />
+						<Route path = '/post/:id/editTopic/:topicId' component={EditPostTopic}/>
+						<Route path = '/post/:id/createTopic' component={CreatePostTopic} />
 						<Route path = '/post/:id' component={PostDetail} />
 						<Route path = '/signin' component={SignIn}/>
 						<Route path = '/signup' component={SignUp}/>

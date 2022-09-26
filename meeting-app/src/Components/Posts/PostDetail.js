@@ -7,7 +7,6 @@ import moment from 'moment'
 import { deletePost } from '../../Store/Actions/postActions'
 import { NavLink } from 'react-router-dom'
 import { PostTopic } from "./PostTopic";
-import AutoScrollContainer from "auto-scroll-container";
 import styled from "styled-components";
 import { MessageInput } from './MessageInput'
 import { Message } from './Message'
@@ -39,7 +38,6 @@ class PostDetail extends Component {
     render() {
         const { post, auth, id, topics, messages } = this.props;
         topics.reverse();
-        console.log(topics);
         if (!auth.uid) return <Redirect to='/signin'/>;
 
         if (post) {

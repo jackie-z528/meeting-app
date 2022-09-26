@@ -8,7 +8,6 @@ const MessageContainer = styled.div`
 `
 
 export const Message = ({message}) => {
-    console.log(message);
     return (
         <MessageContainer>
             {message.authorFirstName} {message.authorLastName}: {message.text}

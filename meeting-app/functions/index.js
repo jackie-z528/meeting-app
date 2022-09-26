@@ -13,7 +13,7 @@ exports.postCreated = functions.firestore.document('/posts/{postId}').onCreate(
         
         const post = doc.data();
         const notif =  {
-            content: 'Created a new post',
+            content: 'Created a new meeting room',
             user: `${post.authorFirstName} ${post.authorLastName}`,
             time: admin.firestore.FieldValue.serverTimestamp()
         }
@@ -27,7 +27,7 @@ exports.postDeleted = functions.firestore.document('/posts/{postId}').onDelete(
   (doc) =>  {
     const post = doc.data();
     const notif = {
-      content: 'Deleted a post',
+      content: 'Deleted a meeting room',
       user: `${post.authorFirstName} ${post.authorLastName}`,
       time: admin.firestore.FieldValue.serverTimestamp()
     }
@@ -44,7 +44,7 @@ exports.userJoined = functions.auth.user()
 
         const newUser = doc.data();
         const notif = {
-          content: 'Joined Firebase Connect!',
+          content: 'Joined Meeting App!',
           user: `${newUser.firstName} ${newUser.lastName}`,
           time: admin.firestore.FieldValue.serverTimestamp()
         };
