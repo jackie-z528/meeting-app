@@ -52,6 +52,19 @@ export const deletePost = (post) => {
     }
 }
 
+export const updatePost = (post, id) => {
+    return (dispatch, getState, { getFirebase }) => {
+        const firestore = getFirebase().firestore();
+        firestore.collection('posts').doc(id).update({
+            ...post
+        }).then(() => {
+            dispatch({type: 'UPDATE_POST', post});
+        }).catch((err) => {
+            dispatch({type: 'UPDATE_POST_ERR', err});
+        });
+    }
+}
+
 export const createPostTopic = (topic) => {
     return (dispatch, getState, { getFirebase }) => {
         const firestore = getFirebase().firestore();

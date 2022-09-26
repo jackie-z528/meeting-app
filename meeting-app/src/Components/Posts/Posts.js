@@ -3,7 +3,6 @@ import PostSummary from './PostSummary';
 import { Link } from 'react-router-dom'
 
 const Posts = ({ posts }) => {
-    console.log(posts)
     return (
         <div className="project-list section">
             { posts && posts.map(post => {

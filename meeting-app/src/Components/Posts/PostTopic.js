@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deletePostTopic } from "../../Store/Actions/postActions";
+import { deletePostTopic, updatePost } from "../../Store/Actions/postActions";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -17,12 +17,17 @@ const TopicContainer = styled.div`
 `
 
 
-export const PostTopic = ({ topic }) => {
-    const { id, title, postId, timeEstimate, description } = topic;
+export const PostTopic = ({ topic, authorized }) => {
+    const { id, title, postId, timeEstimate, description} = topic;
+    console.log(authorized);
     const dispatch = useDispatch();
     const handleClick = (topic) => (e) => {
         e.preventDefault();
         dispatch(deletePostTopic(topic));
+    }
+    const handleSetTopic = (e) => {
+        e.preventDefault();
+        dispatch(updatePost({ currentTopic: title }, postId));
     }
     return (
         <TopicContainer>
@@ -32,8 +37,9 @@ export const PostTopic = ({ topic }) => {
                 {description && <div className="grey-text">Description: {description}</div>}
             </div>
             <div>
-            <NavLink to={`/post/${postId}/editTopic/${id}`} className="btn orange lighten-1 z-depth-1" style={{marginRight: "1rem"}}>Edit Topic</NavLink>
-            <button className="btn orange lighten-1 z-depth-1" onClick={handleClick(topic)}>Delete Topic</button>
+                {authorized && <button className="btn orange lighten-1 z-depth-0" style={{marginRight: "1rem"}} onClick={handleSetTopic}>Set Topic</button>}
+                {authorized && <NavLink to={`/post/${postId}/editTopic/${id}`} className="btn orange lighten-1 z-depth-0" style={{marginRight: "1rem"}}>Edit Topic</NavLink>}
+                {authorized && <button className="btn orange lighten-1 z-depth-0" onClick={handleClick(topic)}>Delete Topic</button>}
             </div>
         </TopicContainer>
     )

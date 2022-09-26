@@ -13,8 +13,9 @@ import { Message } from './Message'
 
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    align-content: stretch;
 `
 
 class PostDetail extends Component {
@@ -38,30 +39,36 @@ class PostDetail extends Component {
     render() {
         const { post, auth, id, topics, messages } = this.props;
         topics.reverse();
+        const authorized = post ? auth.uid === post.authorId : false;
         if (!auth.uid) return <Redirect to='/signin'/>;
 
         if (post) {
             return (
                 <Container className="container section project-details">
+                    <div style={{display: "flex", flexDirection: "column", width: "60%"}}>
                     <div className="card z-depth-0">
                         <div className="card-content">
-                            <span className="card-title">{post.title}</span>
+                            <span className="card-title" style={{fontWeight: "bold"}}>
+                                {post.title} {post.currentTopic && <div>Current Topic: {post.currentTopic}</div>}
+                            </span>
                             {topics && 
                             <div>
-                                {topics.map((topic) => { return <PostTopic topic={topic} key={topic.id}/> })}
+                                {topics.map((topic) => { return <PostTopic topic={topic} key={topic.id} authorized={authorized}/> })}
                             </div>}
                         </div>
                         <div className="card-action grey-lighten-4 grey-text">
                         <div>{post.authorFirstName} {post.authorLastName}
-                        {(auth.uid === post.authorId) ? <button onClick={this.handleClick}className="btn orange lighten-1 z-depth-0 ralign">Delete Meeting</button> : null}
-                        <NavLink to={`/post/${id}/createTopic`} className="btn orange lighten-1 z-depth-0 ralign" style={{marginRight: "1rem"}}>Add Topic</NavLink>
+                        {authorized && <button onClick={this.handleClick}className="btn orange lighten-1 z-depth-0 ralign">Delete Meeting</button>}
+                        {authorized && 
+                        <NavLink to={`/post/${id}/createTopic`} className="btn orange lighten-1 z-depth-0 ralign" style={{marginRight: "1rem"}}>Add Topic</NavLink>}
                         </div>
                         <div>{moment(post.createdAt.toDate()).fromNow()} 
                         </div>
                         </div>
                     </div>
-                    <div>
-                        <div className="card z-depth-0" style={{height: "500px", overflow: "auto", textAlign: "justify", marginBottom: "-5px"}}>
+                    </div>
+                    <div style={{width: "35%"}}>
+                        <div className="card z-depth-0" style={{height: "400px", overflow: "auto", textAlign: "justify", marginBottom: "-5px"}}>
                             {messages.length != 0 ? 
                                 messages.map((message) => <Message message={message}/>) 
                                 : <div style={{padding: "0.5rem"}}>No messages yet</div>

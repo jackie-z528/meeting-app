@@ -42,7 +42,7 @@ class CreatePostTopic extends Component {
                         <label htmlFor="timeEstimate">Time Estimate</label>
                         <input type="text" id="timeEstimate" required onChange={this.handleChange(id)}/>
                     </div>
-                    <div classname="input-field">
+                    <div className="input-field">
                         <label htmlFor="description">Description</label>
                         <input type="text" id="description" onChange={this.handleChange(id)}/>
                     </div>
